@@ -40,8 +40,12 @@ RailsEnv <%= node['capistrano_ruby']['environment'] %>
   <% end -%>
 
   RewriteEngine On
+  <% if node['apache']['version'] == '2.2' %>
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0
+  <% elsif node['apache']['version'] == '2.4' %>
+  LogLevel warn rewrite:trace3
+  <% end %>
 
   # Canonical host, <%= @params[:server_name] %>
   #RewriteCond %{HTTP_HOST}   !^<%= @params[:server_name] %> [NC]
