@@ -5,9 +5,13 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'chef/ubuntu-12.04'
+  config.vm.box = 'chef/ubuntu-14.04'
 
   config.omnibus.chef_version = :latest
+
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :box
+  end
 
   config.vm.define 'app' do |app|
     app.vm.network 'private_network', ip: '172.16.30.11'

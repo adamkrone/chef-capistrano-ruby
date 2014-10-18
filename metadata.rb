@@ -4,7 +4,7 @@ maintainer_email 'krone.adam@gmail.com'
 license          'apachev2'
 description      'Installs/Configures a system for capistrano ruby app deployment'
 long_description 'Installs/Configures a system for capistrano ruby app deployment'
-version          '0.1.0'
+version          '0.2.0'
 
 depends 'apt'
 depends 'users'
