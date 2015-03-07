@@ -13,6 +13,6 @@ describe "RVM" do
   end
 
   describe command('/home/deploy/.rvm/wrappers/default/ruby -v') do
-    its(:stdout) { should match /ruby 2.1.2/ }
+    its(:stdout) { should match /ruby 2.2.0/ }
   end
 end

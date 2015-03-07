@@ -7,12 +7,6 @@ long_description 'Installs/Configures a system for capistrano ruby app deploymen
 version          '0.2.0'
 
 depends 'apt'
-depends 'users'
-depends 'sudo'
-depends 'ssh-hardening'
+depends 'capistrano-base'
 depends 'rvm'
 depends 'nodejs'
-depends 'apache2'
-depends 'mysql'
-depends 'postgresql'
-depends 'database'

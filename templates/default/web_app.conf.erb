@@ -1,0 +1,47 @@
+PassengerRuby /home/<%= @deployment_user %>/.rvm/wrappers/default/ruby
+RailsEnv <%= @environment %>
+
+<VirtualHost *:<%= node['apache']['listen_ports'].first %>>
+<% if @server_name %>
+  ServerName <%= @server_name %>
+<% end %>
+<% if @server_aliases %>
+  ServerAlias <% @server_aliases.each do |a| %><%= a %> <% end %>
+<% end %>
+  DocumentRoot <%= @docroot %>
+  RewriteEngine On
+
+  <Directory <%= @docroot %>>
+    Options FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+
+  <Location /server-status>
+    SetHandler server-status
+
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+  </Location>
+
+  LogLevel info
+  ErrorLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-error.log
+  CustomLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-access.log combined
+
+  RewriteEngine On
+  <% if node['apache']['version'] == '2.2' %>
+  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
+  RewriteLogLevel 0
+  <% end %>
+
+  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  RewriteRule ^.*$ /system/maintenance.html [L]
+</VirtualHost>

@@ -6,31 +6,16 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: ubuntu-12.04
   - name: ubuntu-14.04
+  - name: ubuntu-12.04
 
 suites:
-  - name: web-app-role
+  - name: default
     run_list:
       - recipe[chef-solo-search::default]
-      - recipe[capistrano-ruby::web-app-role]
+      - recipe[capistrano-ruby-test::default]
       - recipe[rvm::vagrant]
     attributes:
       rvm:
         vagrant:
           system_chef_solo: /opt/chef/bin/chef-solo
-  - name: postgresql-role
-    run_list:
-      - recipe[chef-solo-search::default]
-      - recipe[capistrano-ruby::postgresql-role]
-      - recipe[rvm::vagrant]
-    attributes:
-      rvm:
-        vagrant:
-          system_chef_solo: /opt/chef/bin/chef-solo
-      capistrano_ruby:
-        db:
-          user: simple_rails_app
-          user_password: simplerailsapp
-          name: simple_rails_app
-          environments: ['development', 'staging', 'production']
