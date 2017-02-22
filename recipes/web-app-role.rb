@@ -1,10 +1,11 @@
-include_recipe 'apt::default'
-include_recipe 'capistrano-ruby::user'
-include_recipe 'capistrano-ruby::ssh'
-include_recipe 'capistrano-ruby::rvm'
-include_recipe 'nodejs::default'
-include_recipe 'capistrano-ruby::apache2'
-include_recipe 'capistrano-ruby::apache-passenger'
-include_recipe 'capistrano-ruby::chown'
-include_recipe 'capistrano-ruby::app'
-include_recipe 'postgresql::client'
+capistrano_user 'deploy' do
+  group_id 3000
+  action :create
+end
+
+capistrano_ruby_app 'app' do
+  environment 'qa'
+  server_name 'app.dev'
+  ruby_version 'ruby-2.4.0'
+  ruby_gemset 'app'
+end
