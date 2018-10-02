@@ -97,7 +97,7 @@ class Chef
         end
 
         execute 'setup nodejs repo' do
-          command 'curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -'
+          command "curl -sL https://deb.nodesource.com/setup_#{new_resource.node_version} | sudo -E bash -"
           action :run
           not_if { ::File.exist?('/etc/apt/sources.list.d/nodesource.list') }
         end

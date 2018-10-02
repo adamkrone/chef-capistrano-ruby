@@ -38,6 +38,7 @@ class Chef
       attribute :server_aliases, kind_of: Array, default: nil
       attribute :ruby_version, kind_of: String, required: true
       attribute :ruby_gemset, kind_of: String, required: true
+      attribute :node_version, kind_of: String, default: '8.x'
       attribute :environment, kind_of: String, default: 'production'
     end
   end
